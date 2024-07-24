@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
+import cors from "cors";
 import express from 'express';
 import { createServer } from 'node:http';
 import { Server } from 'socket.io';
-import cors from "cors";
 
 const app = express();
 
@@ -35,9 +35,10 @@ function generateAiChat() {
 io.on("connection", (socket) => {
   console.log('a user connected');
   
-  const aiChat = generateAiChat();
-
-  socket.emit('generated ai chat', aiChat)
+  socket.on("executed crew", () => {
+    const aiChat = generateAiChat();
+    socket.emit("generate ai chat", aiChat)
+  })
 
   socket.on('disconnect', () => {
     console.log('user disconnected');

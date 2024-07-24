@@ -37,7 +37,7 @@ io.on("connection", (socket) => {
   
   socket.on("executed crew", () => {
     const aiChat = generateAiChat();
-    socket.emit("generate ai chat", aiChat)
+    socket.emit("generated ai chat", aiChat)
   })
 
   socket.on('disconnect', () => {
